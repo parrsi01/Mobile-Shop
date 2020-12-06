@@ -6,6 +6,10 @@ import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import kotlinx.android.synthetic.main.activity_login.*
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.example.seniorproject.firestore.FirestoreClass
+import com.example.seniorproject.models.User
 
 
 /**
@@ -30,33 +34,31 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-
-        // START
         // Click event assigned to Forgot Password text.
         tv_forgot_password.setOnClickListener(this)
         // Click event assigned to Login button.
         btn_login.setOnClickListener(this)
         // Click event assigned to Register text.
         tv_register.setOnClickListener(this)
-        // END
     }
 
-
-    // START
-    // In Login screen the clickable components are Login Button, ForgotPassword text and Register Text.
+    /**
+     * In Login screen the clickable components are Login Button, ForgotPassword text and Register Text.
+     */
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
 
                 R.id.tv_forgot_password -> {
+
+                    // Launch the forgot password screen when the user clicks on the forgot password text.
+                    val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.btn_login -> {
 
-
-                    // START
-                    validateLoginDetails()
-                    // END
+                    logInRegisteredUser()
                 }
 
                 R.id.tv_register -> {
@@ -67,10 +69,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
-    // END
 
-
-    // START
     /**
      * A function to validate the login entries of a user.
      */
@@ -85,9 +84,64 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 false
             }
             else -> {
-                showErrorSnackBar("Your details are valid.", false)
                 true
             }
         }
     }
+
+    /**
+     * A function to Log-In. The user will be able to log in using the registered email and password with Firebase Authentication.
+     */
+    private fun logInRegisteredUser() {
+
+        if (validateLoginDetails()) {
+
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            // Get the text from editText and trim the space
+            val email = et_email.text.toString().trim { it <= ' ' }
+            val password = et_password.text.toString().trim { it <= ' ' }
+
+            // Log-In using FirebaseAuth
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+
+                    if (task.isSuccessful) {
+
+
+                        // START
+                        /*showErrorSnackBar("You are logged in successfully.", false)*/
+
+                        FirestoreClass().getUserDetails(this@LoginActivity)
+                        // END
+                    } else {
+                        // Hide the progress dialog
+                        hideProgressDialog()
+                        showErrorSnackBar(task.exception!!.message.toString(), true)
+                    }
+                }
+        }
+    }
+
+
+    // START
+    /**
+     * A function to notify user that logged in success and get the user details from the FireStore database after authentication.
+     */
+    fun userLoggedInSuccess(user: User) {
+
+        // Hide the progress dialog.
+        hideProgressDialog()
+
+        // Print the user details in the log as of now.
+        Log.i("First Name: ", user.firstName)
+        Log.i("Last Name: ", user.lastName)
+        Log.i("Email: ", user.email)
+
+        // Redirect the user to Main Screen after log in.
+        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        finish()
+    }
+    // END
 }
