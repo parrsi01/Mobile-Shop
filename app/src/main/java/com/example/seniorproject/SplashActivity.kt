@@ -1,9 +1,12 @@
 package com.example.seniorproject
+
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.seniorproject.firestore.FirestoreClass
+import kotlinx.android.synthetic.main.activity_splash.*
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
@@ -23,10 +26,27 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed(
             {
 
-                // START
-                // Launch the Login Activity
-                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
-                // END
+                // If the user is logged in once and did not logged out manually from the app.
+                // So, next time when the user is coming into the app user will be redirected to MainScreen.
+                // If user is not logged in or logout manually then user will  be redirected to the Login screen as usual.
+
+                // Get the current logged in user id
+                val currentUserID = FirestoreClass().getCurrentUserID()
+
+                if (currentUserID.isNotEmpty()) {
+
+                    // TODO Step 4: Replace the piece of code.
+                    // START
+                    // Start the Main Activity
+                    /*startActivity(Intent(this@SplashActivity, MainActivity::class.java))*/
+
+                    // Launch dashboard screen.
+                    startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
+                    // END
+                } else {
+                    // Launch the Login Activity
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                }
                 finish() // Call this when your activity is done and should be closed.
             },
             2500

@@ -2,12 +2,9 @@ package com.example.seniorproject.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-
-
 /**
  * A data model class for User with required fields.
  */
-// START
 @Parcelize
 data class User(
     val id: String = "",
@@ -17,5 +14,4 @@ data class User(
     val image: String = "",
     val mobile: Long = 0,
     val gender: String = "",
-    val profileCompleted: Int = 0): Parcelable
-// END
+    val profileCompleted: Int = 0) : Parcelable
