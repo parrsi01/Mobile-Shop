@@ -7,6 +7,9 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.seniorproject.firestore.FirestoreClass
 import kotlinx.android.synthetic.main.activity_splash.*
+import android.graphics.Typeface
+
+
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
@@ -34,15 +37,8 @@ class SplashActivity : AppCompatActivity() {
                 val currentUserID = FirestoreClass().getCurrentUserID()
 
                 if (currentUserID.isNotEmpty()) {
-
-                    // TODO Step 4: Replace the piece of code.
-                    // START
-                    // Start the Main Activity
-                    /*startActivity(Intent(this@SplashActivity, MainActivity::class.java))*/
-
                     // Launch dashboard screen.
                     startActivity(Intent(this@SplashActivity, DashboardActivity::class.java))
-                    // END
                 } else {
                     // Launch the Login Activity
                     startActivity(Intent(this@SplashActivity, LoginActivity::class.java))

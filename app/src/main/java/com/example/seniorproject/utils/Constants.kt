@@ -8,17 +8,15 @@ import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 
 
-
-
 /**
  * A custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
  */
 object Constants {
 
-
     // Firebase Constants
-    // This  is used for the collection name for USERS.
+    // This is used for the collection name for USERS.
     const val USERS: String = "users"
+    const val PRODUCTS: String = "products"
 
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
@@ -40,14 +38,15 @@ object Constants {
     const val MOBILE: String = "mobile"
     const val GENDER: String = "gender"
     const val IMAGE: String = "image"
-
-
-    // START
     const val COMPLETE_PROFILE: String = "profileCompleted"
-    // END
 
-    const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
+    const val FIRST_NAME: String = "firstName"
+    const val LAST_NAME: String = "lastName"
 
+    const val USER_ID: String = "user_id"
+
+    const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
+    const val PRODUCT_IMAGE: String = "Product_Image"
 
     /**
      * A function for user profile image selection from phone storage.
