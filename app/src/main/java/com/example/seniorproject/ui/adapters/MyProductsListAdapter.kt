@@ -3,26 +3,29 @@ package com.example.seniorproject.ui.adapters
 
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.seniorproject.ProductDetailsActivity
 import com.example.seniorproject.R
 import com.example.seniorproject.models.Product
 import com.example.seniorproject.ui.fragments.ProductsFragment
+import com.example.seniorproject.utils.Constants
 import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
+
+
 
 /**
  * A adapter class for products list items.
  */
-
 open class MyProductsListAdapter(
     private val context: Context,
     private var list: ArrayList<Product>,
     private val fragment: ProductsFragment
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
 
     /**
      * Inflates the item views which is designed in xml layout file
@@ -60,15 +63,20 @@ open class MyProductsListAdapter(
             holder.itemView.tv_item_name.text = model.title
             holder.itemView.tv_item_price.text = "$${model.price}"
 
-            
             holder.itemView.ib_delete_product.setOnClickListener {
 
-                
-                // START
                 fragment.deleteProduct(model.product_id)
-                // END
             }
-            // END
+
+            holder.itemView.setOnClickListener {
+                // Launch Product details screen.
+                val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
+
+                intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.user_id)
+
+                context.startActivity(intent)
+            }
         }
     }
 

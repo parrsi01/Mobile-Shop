@@ -11,6 +11,8 @@ import com.example.seniorproject.models.Product
 import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_dashboard_layout.view.*
 
+
+
 /**
  * A adapter class for dashboard items list.
  */
@@ -18,6 +20,9 @@ open class DashboardItemsListAdapter(
     private val context: Context,
     private var list: ArrayList<Product>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    // A global variable for OnClickListener interface.
+    private var onClickListener: OnClickListener? = null
 
     /**
      * Inflates the item views which is designed in xml layout file
@@ -57,6 +62,12 @@ open class DashboardItemsListAdapter(
             )
             holder.itemView.tv_dashboard_item_title.text = model.title
             holder.itemView.tv_dashboard_item_price.text = "$${model.price}"
+
+            holder.itemView.setOnClickListener {
+                if (onClickListener != null) {
+                    onClickListener!!.onClick(position, model)
+                }
+            }
         }
     }
 
@@ -65,6 +76,23 @@ open class DashboardItemsListAdapter(
      */
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    /**
+     * A function for OnClickListener where the Interface is the expected parameter and assigned to the global variable.
+     *
+     * @param onClickListener
+     */
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    /**
+     * An interface for onclick items.
+     */
+    interface OnClickListener {
+
+        fun onClick(position: Int, product: Product)
     }
 
     /**

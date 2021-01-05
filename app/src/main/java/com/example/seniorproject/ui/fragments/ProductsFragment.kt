@@ -1,21 +1,22 @@
 package com.example.seniorproject.ui.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import com.example.seniorproject.R
 import android.content.Intent
+import android.os.Bundle
 import android.view.*
-import com.example.seniorproject.AddProductActivity
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.seniorproject.AddProductActivity
+import com.example.seniorproject.R
 import com.example.seniorproject.firestore.FirestoreClass
 import com.example.seniorproject.models.Product
 import com.example.seniorproject.ui.adapters.MyProductsListAdapter
 import kotlinx.android.synthetic.main.fragment_products.*
+
+
+
+
 
 /**
  * A products fragment.
@@ -84,17 +85,14 @@ class ProductsFragment : BaseFragment() {
             rv_my_product_items.layoutManager = LinearLayoutManager(activity)
             rv_my_product_items.setHasFixedSize(true)
 
-
             val adapterProducts =
                 MyProductsListAdapter(requireActivity(), productsList, this@ProductsFragment)
-            // END
             rv_my_product_items.adapter = adapterProducts
         } else {
             rv_my_product_items.visibility = View.GONE
             tv_no_products_found.visibility = View.VISIBLE
         }
     }
-
 
     /**
      * A function that will call the delete function of FirestoreClass that will delete the product added by the user.
@@ -103,13 +101,79 @@ class ProductsFragment : BaseFragment() {
      */
     fun deleteProduct(productID: String) {
 
+
         // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
 
-        Toast.makeText(
+        /*Toast.makeText(
             requireActivity(),
             "You can now delete the product. $productID",
             Toast.LENGTH_SHORT
+        ).show()*/
+
+        showAlertDialogToDeleteProduct(productID)
+        // END
+    }
+
+
+    // START
+    /**
+     * A function to notify the success result of product deleted from cloud firestore.
+     */
+    fun productDeleteSuccess() {
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        Toast.makeText(
+            requireActivity(),
+            resources.getString(R.string.product_delete_success_message),
+            Toast.LENGTH_SHORT
         ).show()
+
+        // Get the latest products list from cloud firestore.
+        getProductListFromFireStore()
+    }
+    // END
+
+
+    // START
+    /**
+     * A function to show the alert dialog for the confirmation of delete product from cloud firestore.
+     */
+    private fun showAlertDialogToDeleteProduct(productID: String) {
+
+        val builder = AlertDialog.Builder(requireActivity())
+        //set title for alert dialog
+        builder.setTitle(resources.getString(R.string.delete_dialog_title))
+        //set message for alert dialog
+        builder.setMessage(resources.getString(R.string.delete_dialog_message))
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
+        //performing positive action
+        builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
+
+
+            // START
+            // Show the progress dialog.
+            showProgressDialog(resources.getString(R.string.please_wait))
+
+            // Call the function of Firestore class.
+            FirestoreClass().deleteProduct(this@ProductsFragment, productID)
+            // END
+
+            dialogInterface.dismiss()
+        }
+
+        //performing negative action
+        builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
+
+            dialogInterface.dismiss()
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
     // END
 }
