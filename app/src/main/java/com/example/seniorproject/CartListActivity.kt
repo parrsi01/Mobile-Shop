@@ -1,14 +1,16 @@
 package com.example.seniorproject
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.seniorproject.firestore.FirestoreClass
 import com.example.seniorproject.models.Cart
 import com.example.seniorproject.models.Product
 import com.example.seniorproject.ui.adapters.CartItemsListAdapter
+import com.example.seniorproject.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
-import android.widget.Toast
 
 /**
  * Cart list activity of the application.
@@ -31,6 +33,15 @@ class CartListActivity : BaseActivity() {
         setContentView(R.layout.activity_cart_list)
 
         setupActionBar()
+
+
+        // START
+        btn_checkout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
+        // END
     }
 
     override fun onResume() {
@@ -173,8 +184,6 @@ class CartListActivity : BaseActivity() {
         getCartItemsList()
     }
 
-
-    // START
     /**
      * A function to notify the user about the item quantity updated in the cart list.
      */
@@ -184,5 +193,4 @@ class CartListActivity : BaseActivity() {
 
         getCartItemsList()
     }
-    // END
 }

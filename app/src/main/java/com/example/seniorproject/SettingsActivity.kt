@@ -10,17 +10,13 @@ import com.example.seniorproject.utils.GlideLoader
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_settings.*
 
-
 /**
  * Setting screen of the app.
  */
 class SettingsActivity : BaseActivity(), View.OnClickListener {
 
-
     // A variable for user details which will be initialized later on.
     private lateinit var mUserDetails: User
-    // END
-
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -34,13 +30,12 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         setupActionBar()
 
 
-
         tv_edit.setOnClickListener(this@SettingsActivity)
-
-
-
         btn_logout.setOnClickListener(this@SettingsActivity)
 
+
+        ll_address.setOnClickListener(this@SettingsActivity)
+        // END
     }
 
     override fun onResume() {
@@ -49,19 +44,22 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         getUserDetails()
     }
 
-
     override fun onClick(v: View?) {
         if (v != null) {
             when (v.id) {
-
 
                 R.id.tv_edit -> {
                     val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
                     intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
                     startActivity(intent)
                 }
-                // END
 
+                
+                R.id.ll_address -> {
+                    val intent = Intent(this@SettingsActivity, AddressListActivity::class.java)
+                    startActivity(intent)
+                }
+                // END
 
                 R.id.btn_logout -> {
 
@@ -72,11 +70,9 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
                     startActivity(intent)
                     finish()
                 }
-                // END
             }
         }
     }
-    // END
 
     /**
      * A function for actionBar Setup.
@@ -111,9 +107,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
      */
     fun userDetailsSuccess(user: User) {
 
-
         mUserDetails = user
-        // END
 
         // Hide the progress dialog
         hideProgressDialog()

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
 
+
 /**
  * A custom object to declare all the constant values in a single file. The constant values declared here is can be used in whole application.
  */
@@ -17,6 +18,7 @@ object Constants {
     const val USERS: String = "users"
     const val PRODUCTS: String = "products"
     const val CART_ITEMS: String = "cart_items"
+    const val ADDRESSES: String = "addresses"
 
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
     const val LOGGED_IN_USERNAME: String = "logged_in_username"
@@ -25,12 +27,23 @@ object Constants {
     const val EXTRA_USER_DETAILS: String = "extra_user_details"
     const val EXTRA_PRODUCT_ID: String = "extra_product_id"
     const val EXTRA_PRODUCT_OWNER_ID: String = "extra_product_owner_id"
+    const val EXTRA_ADDRESS_DETAILS: String = "AddressDetails"
+
+    // START
+    const val EXTRA_SELECT_ADDRESS: String = "extra_select_address"
+    // END
 
     //A unique code for asking the Read Storage Permission using this we will be check and identify in the method onRequestPermissionsResult in the Base Activity.
     const val READ_STORAGE_PERMISSION_CODE = 2
 
     // A unique code of image selection from Phone Storage.
     const val PICK_IMAGE_REQUEST_CODE = 2
+
+
+
+    // START
+    const val ADD_ADDRESS_REQUEST_CODE: Int = 121
+    // END
 
     // Constant variables for Gender
     const val MALE: String = "Male"
@@ -51,11 +64,11 @@ object Constants {
     const val USER_PROFILE_IMAGE: String = "User_Profile_Image"
     const val PRODUCT_IMAGE: String = "Product_Image"
 
-
-    // START
     const val CART_QUANTITY: String = "cart_quantity"
-    // END
 
+    const val HOME: String = "Home"
+    const val OFFICE: String = "Office"
+    const val OTHER: String = "Other"
 
     /**
      * A function for user profile image selection from phone storage.
