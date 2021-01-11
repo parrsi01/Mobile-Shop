@@ -10,17 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.seniorproject.AddEditAddressActivity
+import com.example.seniorproject.CheckoutActivity
 import com.example.seniorproject.R
 import com.example.seniorproject.models.Address
 import com.example.seniorproject.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
-import android.widget.Toast
 
 
 /**
  * An adapter class for AddressList adapter.
  */
-
 open class AddressListAdapter(
     private val context: Context,
     private var list: ArrayList<Address>,
@@ -64,17 +63,17 @@ open class AddressListAdapter(
             holder.itemView.tv_address_details.text = "${model.address}, ${model.zipCode}"
             holder.itemView.tv_address_mobile_number.text = model.mobileNumber
 
-            // START
             if (selectAddress) {
                 holder.itemView.setOnClickListener {
-                    Toast.makeText(
-                        context,
-                        "Selected address : ${model.address}, ${model.zipCode}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+
+                    val intent = Intent(context, CheckoutActivity::class.java)
+
+                    // START
+                    intent.putExtra(Constants.EXTRA_SELECTED_ADDRESS, model)
+                    // END
+                    context.startActivity(intent)
                 }
             }
-            // END
         }
     }
 
@@ -94,14 +93,7 @@ open class AddressListAdapter(
     fun notifyEditItem(activity: Activity, position: Int) {
         val intent = Intent(context, AddEditAddressActivity::class.java)
         intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
-
-
-        // START
-        // activity.startActivity (intent)
-
         activity.startActivityForResult(intent, Constants.ADD_ADDRESS_REQUEST_CODE)
-        // END
-
         notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
     }
 

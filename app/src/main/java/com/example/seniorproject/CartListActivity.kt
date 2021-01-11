@@ -12,6 +12,8 @@ import com.example.seniorproject.ui.adapters.CartItemsListAdapter
 import com.example.seniorproject.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
 
+
+
 /**
  * Cart list activity of the application.
  */
@@ -34,14 +36,11 @@ class CartListActivity : BaseActivity() {
 
         setupActionBar()
 
-
-        // START
         btn_checkout.setOnClickListener {
             val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
             intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
             startActivity(intent)
         }
-        // END
     }
 
     override fun onResume() {
@@ -131,7 +130,10 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems)
+
+            // START
+            val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems, true)
+            // END
             rv_cart_items_list.adapter = cartListAdapter
 
             var subTotal: Double = 0.0

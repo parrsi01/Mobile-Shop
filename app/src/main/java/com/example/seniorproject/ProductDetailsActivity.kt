@@ -11,7 +11,8 @@ import com.example.seniorproject.models.Product
 import com.example.seniorproject.utils.Constants
 import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
-
+import kotlinx.android.synthetic.main.activity_product_details.*
+import kotlinx.android.synthetic.main.item_cart_layout.view.*
 
 /**
  * Product Details Screen.
@@ -143,8 +144,6 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_product_details_stock_quantity.text = product.stock_quantity
 
 
-
-        // START
         if(product.stock_quantity.toInt() == 0){
 
             // Hide Progress dialog.
@@ -172,7 +171,6 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
                 FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
             }
         }
-        // END
     }
 
     /**

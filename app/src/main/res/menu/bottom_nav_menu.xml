@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Update the icon of each item which are added in the drawable folder and remove the existing one as they are not in use anymore.-->
     <item
         android:id="@+id/navigation_dashboard"
         android:icon="@drawable/ic_vector_dashboard"
@@ -17,4 +16,10 @@
         android:icon="@drawable/ic_vector_products"
         android:title="@string/title_orders" />
 
+
+    <!--START-->
+    <item
+        android:id="@+id/navigation_sold_products"
+        android:icon="@drawable/ic_vector_sold_products"
+        android:title="@string/title_sold_products" />
 </menu>

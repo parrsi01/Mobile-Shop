@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.example.seniorproject.R
 import kotlinx.android.synthetic.main.dialog_process.*
 
+
 /**
  * A base fragment class is used to define the functions and members which we will use in all the fragments.
  * It inherits the Fragment class so in other fragment class we will replace the Fragment with BaseFragment.

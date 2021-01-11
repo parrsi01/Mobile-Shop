@@ -18,15 +18,17 @@ import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_cart_layout.view.*
 
 
-
 /**
  * A adapter class for dashboard items list.
  */
+
+// START
 open class CartItemsListAdapter(
     private val context: Context,
-    private var list: ArrayList<Cart>
+    private var list: ArrayList<Cart>,
+    private val updateCartItems: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+// END
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -70,6 +72,15 @@ open class CartItemsListAdapter(
                 holder.itemView.ib_remove_cart_item.visibility = View.GONE
                 holder.itemView.ib_add_cart_item.visibility = View.GONE
 
+
+                // START
+                if (updateCartItems) {
+                    holder.itemView.ib_delete_cart_item.visibility = View.VISIBLE
+                } else {
+                    holder.itemView.ib_delete_cart_item.visibility = View.GONE
+                }
+                // END
+
                 holder.itemView.tv_cart_quantity.text =
                     context.resources.getString(R.string.lbl_out_of_stock)
 
@@ -80,8 +91,20 @@ open class CartItemsListAdapter(
                     )
                 )
             } else {
-                holder.itemView.ib_remove_cart_item.visibility = View.VISIBLE
-                holder.itemView.ib_add_cart_item.visibility = View.VISIBLE
+
+
+                // START
+                if (updateCartItems) {
+                    holder.itemView.ib_remove_cart_item.visibility = View.VISIBLE
+                    holder.itemView.ib_add_cart_item.visibility = View.VISIBLE
+                    holder.itemView.ib_delete_cart_item.visibility = View.VISIBLE
+                } else {
+
+                    holder.itemView.ib_remove_cart_item.visibility = View.GONE
+                    holder.itemView.ib_add_cart_item.visibility = View.GONE
+                    holder.itemView.ib_delete_cart_item.visibility = View.GONE
+                }
+                // END
 
                 holder.itemView.tv_cart_quantity.setTextColor(
                     ContextCompat.getColor(
@@ -91,12 +114,8 @@ open class CartItemsListAdapter(
                 )
             }
 
-
-            // START
             holder.itemView.ib_remove_cart_item.setOnClickListener {
 
-
-                // START
                 if (model.cart_quantity == "1") {
                     FirestoreClass().removeItemFromCart(context, model.id)
                 } else {
@@ -115,16 +134,10 @@ open class CartItemsListAdapter(
 
                     FirestoreClass().updateMyCart(context, model.id, itemHashMap)
                 }
-                // END
             }
-            // END
 
-
-            // START
             holder.itemView.ib_add_cart_item.setOnClickListener {
 
-                
-                // START
                 val cartQuantity: Int = model.cart_quantity.toInt()
 
                 if (cartQuantity < model.stock_quantity.toInt()) {
@@ -150,10 +163,7 @@ open class CartItemsListAdapter(
                         )
                     }
                 }
-                // END
             }
-            // END
-
 
             holder.itemView.ib_delete_cart_item.setOnClickListener {
 
