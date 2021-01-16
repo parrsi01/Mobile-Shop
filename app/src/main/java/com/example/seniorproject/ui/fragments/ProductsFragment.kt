@@ -15,9 +15,6 @@ import com.example.seniorproject.ui.adapters.MyProductsListAdapter
 import kotlinx.android.synthetic.main.fragment_products.*
 
 
-
-
-
 /**
  * A products fragment.
  */
@@ -101,21 +98,9 @@ class ProductsFragment : BaseFragment() {
      */
     fun deleteProduct(productID: String) {
 
-
-        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
-
-        /*Toast.makeText(
-            requireActivity(),
-            "You can now delete the product. $productID",
-            Toast.LENGTH_SHORT
-        ).show()*/
-
         showAlertDialogToDeleteProduct(productID)
-        // END
     }
 
-
-    // START
     /**
      * A function to notify the success result of product deleted from cloud firestore.
      */
@@ -135,8 +120,6 @@ class ProductsFragment : BaseFragment() {
     }
     // END
 
-
-    // START
     /**
      * A function to show the alert dialog for the confirmation of delete product from cloud firestore.
      */
@@ -152,14 +135,11 @@ class ProductsFragment : BaseFragment() {
         //performing positive action
         builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
 
-
-            // START
             // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
 
             // Call the function of Firestore class.
             FirestoreClass().deleteProduct(this@ProductsFragment, productID)
-            // END
 
             dialogInterface.dismiss()
         }

@@ -17,7 +17,6 @@ import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
 
-
 /**
  * A adapter class for products list items.
  */
@@ -72,9 +71,7 @@ open class MyProductsListAdapter(
                 // Launch Product details screen.
                 val intent = Intent(context, ProductDetailsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
-
                 intent.putExtra(Constants.EXTRA_PRODUCT_OWNER_ID, model.user_id)
-
                 context.startActivity(intent)
             }
         }

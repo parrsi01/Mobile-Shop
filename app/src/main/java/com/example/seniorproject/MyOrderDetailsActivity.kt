@@ -1,18 +1,19 @@
 package com.example.seniorproject
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.example.seniorproject.models.Order
-import com.example.seniorproject.utils.Constants
-import kotlinx.android.synthetic.main.activity_my_order_details.*
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.seniorproject.models.Order
 import com.example.seniorproject.ui.adapters.CartItemsListAdapter
+import com.example.seniorproject.utils.Constants
+import kotlinx.android.synthetic.main.activity_my_order_details.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 /**
  * My Order Details Screen.
@@ -30,20 +31,14 @@ class MyOrderDetailsActivity : AppCompatActivity() {
 
         setupActionBar()
 
-
-        // START
         var myOrderDetails: Order = Order()
-        // END
 
         if (intent.hasExtra(Constants.EXTRA_MY_ORDER_DETAILS)) {
             myOrderDetails =
                 intent.getParcelableExtra<Order>(Constants.EXTRA_MY_ORDER_DETAILS)!!
         }
 
-
-        // START
         setupUI(myOrderDetails)
-        // END
     }
 
     /**
@@ -62,8 +57,6 @@ class MyOrderDetailsActivity : AppCompatActivity() {
         toolbar_my_order_details_activity.setNavigationOnClickListener { onBackPressed() }
     }
 
-
-    // START
     /**
      * A function to setup UI.
      *
@@ -73,8 +66,6 @@ class MyOrderDetailsActivity : AppCompatActivity() {
 
         tv_order_details_id.text = orderDetails.title
 
-
-        // START
         // Date Format in which the date will be displayed in the UI.
         val dateFormat = "dd MMM yyyy HH:mm"
         // Create a DateFormatter object for displaying date in specified format.
@@ -86,10 +77,7 @@ class MyOrderDetailsActivity : AppCompatActivity() {
 
         val orderDateTime = formatter.format(calendar.time)
         tv_order_details_date.text = orderDateTime
-        // END
 
-
-        // START
         // Get the difference between the order date time and current date time in hours.
         // If the difference in hours is 1 or less then the order status will be PENDING.
         // If the difference in hours is 2 or greater then 1 then the order status will be PROCESSING.
@@ -128,7 +116,6 @@ class MyOrderDetailsActivity : AppCompatActivity() {
                 )
             }
         }
-        // END
 
         rv_my_order_items_list.layoutManager = LinearLayoutManager(this@MyOrderDetailsActivity)
         rv_my_order_items_list.setHasFixedSize(true)
@@ -155,5 +142,4 @@ class MyOrderDetailsActivity : AppCompatActivity() {
         tv_order_details_shipping_charge.text = orderDetails.shipping_charge
         tv_order_details_total_amount.text = orderDetails.total_amount
     }
-    // END
 }

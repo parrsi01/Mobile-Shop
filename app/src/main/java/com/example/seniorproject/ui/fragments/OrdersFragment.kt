@@ -11,6 +11,8 @@ import com.example.seniorproject.models.Order
 import com.example.seniorproject.ui.adapters.MyOrdersListAdapter
 import kotlinx.android.synthetic.main.fragment_orders.*
 
+
+
 /**
  * Order listing fragment.
  */

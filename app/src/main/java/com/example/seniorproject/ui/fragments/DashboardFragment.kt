@@ -14,7 +14,6 @@ import com.example.seniorproject.ui.adapters.DashboardItemsListAdapter
 import com.example.seniorproject.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
-
 class DashboardFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,13 +49,10 @@ class DashboardFragment : BaseFragment() {
                 return true
             }
 
-
-            // START
             R.id.action_cart -> {
                 startActivity(Intent(activity, CartListActivity::class.java))
                 return true
             }
-            // END
         }
         return super.onOptionsItemSelected(item)
     }

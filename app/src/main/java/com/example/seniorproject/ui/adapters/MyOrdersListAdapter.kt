@@ -61,13 +61,11 @@ open class MyOrdersListAdapter(
 
             holder.itemView.ib_delete_product.visibility = View.GONE
 
-            // START
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, MyOrderDetailsActivity::class.java)
                 intent.putExtra(Constants.EXTRA_MY_ORDER_DETAILS, model)
                 context.startActivity(intent)
             }
-            // END
         }
     }
 

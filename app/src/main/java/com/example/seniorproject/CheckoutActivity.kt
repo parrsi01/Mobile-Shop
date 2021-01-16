@@ -13,7 +13,6 @@ import com.example.seniorproject.models.Product
 import com.example.seniorproject.ui.adapters.CartItemsListAdapter
 import com.example.seniorproject.utils.Constants
 import kotlinx.android.synthetic.main.activity_checkout.*
-import kotlinx.android.synthetic.main.activity_settings.*
 
 
 /**
@@ -36,11 +35,8 @@ class CheckoutActivity : BaseActivity() {
     // A global variable for the Total Amount.
     private var mTotalAmount: Double = 0.0
 
-
-    // START
     // A global variable for Order details.
     private lateinit var mOrderDetails: Order
-    // END
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -67,7 +63,7 @@ class CheckoutActivity : BaseActivity() {
             if (mAddressDetails?.otherDetails!!.isNotEmpty()) {
                 tv_checkout_other_details.text = mAddressDetails?.otherDetails
             }
-            tv_mobile_number.text = mAddressDetails?.mobileNumber
+            tv_checkout_mobile_number.text = mAddressDetails?.mobileNumber
         }
 
         btn_place_order.setOnClickListener {
@@ -184,7 +180,6 @@ class CheckoutActivity : BaseActivity() {
         // Show the progress dialog.
         showProgressDialog(resources.getString(R.string.please_wait))
 
-
         mOrderDetails = Order(
             FirestoreClass().getCurrentUserID(),
             mCartItemsList,
@@ -205,10 +200,7 @@ class CheckoutActivity : BaseActivity() {
      */
     fun orderPlacedSuccess() {
 
-
-        // START
         FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList, mOrderDetails)
-        // END
     }
 
     /**

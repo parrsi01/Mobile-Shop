@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.example.seniorproject.*
 import com.example.seniorproject.firestore.FirestoreClass
 import com.example.seniorproject.models.Cart
 import com.example.seniorproject.models.Product
 import com.example.seniorproject.utils.Constants
 import com.example.seniorproject.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
-import kotlinx.android.synthetic.main.activity_product_details.*
-import kotlinx.android.synthetic.main.item_cart_layout.view.*
 
 /**
  * Product Details Screen.

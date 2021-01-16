@@ -130,19 +130,16 @@ class CartListActivity : BaseActivity() {
             rv_cart_items_list.layoutManager = LinearLayoutManager(this@CartListActivity)
             rv_cart_items_list.setHasFixedSize(true)
 
-
-            // START
             val cartListAdapter = CartItemsListAdapter(this@CartListActivity, mCartListItems, true)
-            // END
             rv_cart_items_list.adapter = cartListAdapter
 
             var subTotal: Double = 0.0
 
             for (item in mCartListItems) {
 
-                val availableQuantity = item.stock_quantity.toInt()
+                val availableQuantity = item.stock_quantity
 
-                if (availableQuantity > 0) {
+                if (availableQuantity > 0.toString()) {
                     val price = item.price.toDouble()
                     val quantity = item.cart_quantity.toInt()
 

@@ -9,17 +9,16 @@ import com.example.seniorproject.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_process.*
 
+
+
 /**
  * A base activity class is used to define the functions and members which we will use in all the activities.
  * It inherits the AppCompatActivity class so in other activity class we will replace the AppCompatActivity with BaseActivity.
  */
 open class BaseActivity : AppCompatActivity() {
 
-
     // A global variable for double back press feature.
-    // START
     private var doubleBackToExitPressedOnce = false
-    // END
 
     /**
      * This is a progress dialog instance which we will initialize later on.
@@ -78,8 +77,6 @@ open class BaseActivity : AppCompatActivity() {
         mProgressDialog.dismiss()
     }
 
-
-
     /**
      * A function to implement the double back press feature to exit the app.
      */
@@ -101,5 +98,4 @@ open class BaseActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
-    // END
 }
